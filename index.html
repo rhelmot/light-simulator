@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="simulator">
+  <head>
+    <meta charset="UTF-8">
+    <title>Light Sculpture Simulator</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
+    <script src="//cdn.firebase.com/v0/firebase.js"></script>
+    <!-- persona is currently broken in their simple login, so use own
+    <script src="//cdn.firebase.com/js/simple-login/1.2.0/firebase-simple-login.js"></script>
+    -->
+    <script src="lib/firebase-simple-login.js"></script>
+    <script src="//login.persona.org/include.js"></script>
+    <script src="//cdn.firebase.com/libs/angularfire/0.6.0/angularfire.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angularLocalStorage/src/angularLocalStorage.js"></script>
+    <script src="lib/three.min.js"></script>
+    <script src="lib/OrbitControls.js"></script>
+    <script src="bower_components/ace-builds/src-min/ace.js"></script>
+    <script src="bower_components/ace-builds/src-min/mode-c_cpp.js"></script>
+    <script src="bower_components/ace-builds/src-min/theme-github.js"></script>
+    <script src="js/3dview.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/code.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+  </head>
+  <body ng-controller="SimCtrl">
+    <div id="glcanvas" ls-view></div>
+    <a ng-click="coding = true" type="button" class="btn btn-primary btn-large" id="edit-code">Edit code</a>
+    <a type="button" class="btn btn-primary btn-large" id="login" ng-hide="auth.authenticated" ng-click="loginObj.$login('persona')">Login to save in the cloud</a>
+    <a type="button" class="btn btn-primary btn-large" id="logout" ng-show="auth.authenticated" ng-click="loginObj.$logout()">Logged in as {{auth.user}} — Logout</a>
+    <div id="edit-rods" class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a class="accordion-toggle" data-toggle="collapse" href="#editing-rods">
+            Edit&nbsp;
+          </a>
+          <select ng-model="design" ng-options="k as k for (k, v) in designs"></select>
+          <button ng-click="newDesign()" id="new-design" type="button" class="btn btn-success btn-xs">
+            <span class="glyphicon glyphicon-plus"></span> New Design
+          </button>
+        </h4>
+      </div>
+      <div id="editing-rods" class="panel-collapse in">
+        <div id="edit-rods-content" class="panel-body">
+          <label>
+            Rename:
+            <input ng-model="designs[design].name">
+          </label>
+          <button ng-click="removeDesign(design)" id="delete-design" type="button" class="delete-design btn btn-danger btn-xs">
+            <span class="glyphicon glyphicon-trash"></span> Delete this design
+          </button>
+          <div id="render-poles-check" class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="renderPoles">
+              Render poles
+            </label>
+          </div>
+          <button ng-click="addPole()" id="add-pole" type="button" class="btn btn-success btn-xs">
+            <span class="glyphicon glyphicon-plus"></span> Add Pole
+          </button>
+          <div class="panel panel-default edit-pole" ng-repeat="pole in designs[design].poles">
+            <div ng-include="'partials/pole.html'"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-show="coding" id="editor-container">
+      <button ng-click="coding = !coding" id="close-editor" type="button" class="btn btn-danger">Close</button>
+      <button ng-click="saveCode()" id="save-code" type="button" class="btn btn-sucess">Save</button>
+      <div code-view id="editor"></div>
+      <textarea readonly id="console">{{codeConsole}}</textarea>
+      <button ng-click="runCode()" id="run-btn" type="button" class="btn btn-lg btn-primary">Run</button>
+    </div>
+  </body>
+</html>

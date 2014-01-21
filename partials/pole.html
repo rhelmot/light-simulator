@@ -1,0 +1,33 @@
+<div class="panel-heading">
+  <h4 class="panel-title">
+    <a class="accordion-toggle in" data-toggle="collapse" href="#editing-pole{i}">
+      Pole
+    </a>
+    at (<input class="pole-pos pole-x" type="text" ng-model="pole.pos[0]" parse-float>,
+    <input class="pole-pos pole-y" type="text" ng-model="pole.pos[1]" parse-float>)
+    <button ng-click="addRod(pole)" type="button" class="add-rod btn btn-success btn-xs">
+      <span class="glyphicon glyphicon-plus"></span> Add Rod
+    </button>
+  </h4>
+</div>
+<div class="panel-collapse in">
+  <div class="panel-body edit-pole-main">
+    <button ng-click="deletePole(pole)" type="button" class="delete-pole btn btn-danger btn-xs">
+      <span class="glyphicon glyphicon-trash"></span> Delete this Pole
+    </button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><span class="glyphicon glyphicon-trash"></span></th>
+          <th>r</th>
+          <th>θ</th>
+          <th>height</th>
+          <th>color</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="rod-row" ng-include="'partials/rod.html'" ng-repeat="rod in pole.rods">
+      </tbody>
+    </table>
+  </div>
+</div>
