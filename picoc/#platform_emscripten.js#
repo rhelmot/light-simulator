@@ -1,0 +1,3 @@
+var LibraryThing = {
+    PlatformReadFile: function(fileName) {
+	
