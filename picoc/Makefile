@@ -1,6 +1,6 @@
 CC=emcc
 CFLAGS=-Wall -pedantic -DUNIX_HOST -std=c99
-LIBS=-lm -lreadline -s EXPORTED_FUNCTIONS="['_main', '_initPicoc']"
+LIBS=-s EXPORTED_FUNCTIONS="['_main', '_initPicoc']"
 
 TARGET	= picoc.js
 SRCS	= jsrunner.c table.c lex.c parse.c expression.c heap.c type.c \
