@@ -15,7 +15,7 @@ OBJS	:= $(SRCS:%.c=%.o)
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LIBS) --js-library libarduino.js --embed-file test.c --embed-file foo.c
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) $(LIBS) --js-library libarduino.js
 
 test:	all
 	(cd tests; make test)
