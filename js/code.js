@@ -36,9 +36,11 @@
             }
             worker = new Worker("picoc.min.js");
             worker.onmessage = function(event) {
+                // HEY HERE'S THE COOL PART
                 if (event.data.type == "write") {
-                    $scope.pins[event.data.pin] = event.data.brightness;
-                    $scope.$digest();
+                    draw_led(event.data.pin, event.data.brightness);
+                    //$scope.pins[event.data.pin] = event.data.brightness;
+                    //$scope.$digest();
                 } else if (event.data.type == "msg") {
                     $("#console").append(event.data.msg);
                 } else if (event.data.type == "error") {
