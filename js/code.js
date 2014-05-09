@@ -1,61 +1,31 @@
-(function(angular, ace, $) {
-    var module = angular.module('simulator.codeview', []);
-    module.directive('codeView', function() { return { link: codeView }; });
-    function codeView($scope, elem, attrs) {
-        console.log(elem.context);
-        var editor = ace.edit(elem.context);
-        editor.setTheme("ace/theme/github");
-        editor.getSession().setMode("ace/mode/c_cpp");
-        editor.setValue("void setup()\n{\n  \n}\n\nvoid loop()\n{\n  \n}\n");
-        editor.gotoLine(3, 3);
-        editor.getSession().setTabSize(2);
+var worker, editor, console;
 
-        $scope.saveCode = function() {
-            var design = $scope.designs[$scope.design];
-            design.programs = {};
-            design.programs['main'] = editor.getValue();
-        };
+$(document).ready(function () {
+    worker = null;
+    editor = $('#editor');
+    console = $('#console');
+    $('#run-btn').click(runCode);
+});
 
-        $scope.$watch('designs[design].programs', function(val) {
-            if ('main' in val) {
-                editor.setValue(val['main']);
-            }
-        }, true);
 
-        $scope.$watch('coding', function() {
-            console.log('resizing editor');
-            editor.resize();
-            editor.renderer.updateFull();
-        }, true);
-
-        var worker;
-        $scope.runCode = function() {
-            var code = "#include <Arduino.h>\n" + editor.getValue();
-            if (worker) {
-                worker.terminate();
-            }
-            worker = new Worker("picoc.min.js");
-            worker.onmessage = function(event) {
-                // HEY HERE'S THE COOL PART
-                if (event.data.type == "write") {
-                    draw_led(event.data.pin, event.data.brightness);
-                    //$scope.pins[event.data.pin] = event.data.brightness;
-                    //$scope.$digest();
-                } else if (event.data.type == "msg") {
-                    $("#console").append(event.data.msg);
-                } else if (event.data.type == "error") {
-                    editor.getSession().setAnnotations([{
-                        row: event.data.line,
-                        column: event.data.column,
-                        text: "ERRAR",
-                        type: "error"
-                    }]);
-                } else {
-                    console.log("received other webworker event:");
-                    console.log(event);
-                }
-            };
-            worker.postMessage({code: code});
-        };
+function runCode() {
+    console.text('');
+    var code = "#include <Arduino.h>\n" + editor.text();
+    if (worker) {
+        worker.terminate();
     }
-})(angular, ace, jQuery);
+    worker = new Worker("picoc.min.js");
+    worker.onmessage = function(event) {
+        if (event.data.type == "write") {
+            draw_led(event.data.pin, event.data.brightness);
+        } else if (event.data.type == "msg") {
+            console.append(event.data.msg + '\n');
+        } else if (event.data.type == "error") {
+            console.append('Error Line ' + event.data.line + ', Col ' + event.data.column) + '\n';
+        } else {
+            console.log("received other webworker event:");
+            console.log(event);
+        }
+    };
+    worker.postMessage({code: code});
+};
