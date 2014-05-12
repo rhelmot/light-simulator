@@ -10,7 +10,7 @@ $(document).ready(function () {
 
 function runCode() {
     console.text('');
-    var code = "#include <Arduino.h>\n" + editor.text();
+    var code = "#include <Arduino.h>\n" + editor.val();
     if (worker) {
         worker.terminate();
     }
@@ -21,7 +21,7 @@ function runCode() {
         } else if (event.data.type == "msg") {
             console.append(event.data.msg + '\n');
         } else if (event.data.type == "error") {
-            console.append('Error Line ' + event.data.line + ', Col ' + event.data.column) + '\n';
+            console.append('Error Line ' + event.data.line + ', Col ' + event.data.column + '\n');
         } else {
             console.log("received other webworker event:");
             console.log(event);
