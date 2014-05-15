@@ -3,22 +3,28 @@
   <head>
     <meta charset="UTF-8">
     <title>Light Sculpture Simulator</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/codemirror.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery.js"></script>
+    <script src="js/codemirror.js"></script>
+    <script src="js/clike.js"></script>
     <script src="js/code.js"></script>
     <script src="js/basicboard.js"></script>
-    <script src="css/bootstrap.min.js"></script>
   </head>
   <body>
     <img id="boardon" src="img/boardon.png">
     <img id="boardoff" src="img/boardoff.png">
-    <canvas id="glcanvas"></canvas>
-    <a type="button" class="btn btn-primary btn-large" id="edit-code">Edit code</a>
+    <canvas id="canvas"></canvas>
     <div id="editor-container">
+      <div id="editor-title">
+        Edit code
+        <button id="run-btn" type="button">Run</button>
+      </div>
       <textarea id="editor"></textarea>
-      <textarea readonly id="console">This is the output window!</textarea>
-      <button id="run-btn" type="button" class="btn btn-lg btn-primary">Run</button>
+    </div>
+    <div id="console-container">
+      <div id="console-title">Output</div>
+      <div id="console"></div>
     </div>
   </body>
 </html>

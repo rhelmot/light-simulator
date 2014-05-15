@@ -1,7 +1,7 @@
 var cx;
 
 $(document).ready( function () {
-    cx = $('#glcanvas')[0].getContext('2d');
+    cx = $('#canvas')[0].getContext('2d');
     draw_board();
 });
 

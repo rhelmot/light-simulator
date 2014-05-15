@@ -3,29 +3,23 @@
 }
 
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif;
+    background-color: #888;
 }
-/*
-#glcanvas {
-  position: absolute;
-  top: 0;
-  left: 0; 
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}*/
 
-#glcanvas {
+#canvas {
     display: block;
     width: 500px;
     height: 700px;
     position: absolute;
-    left: 50%;
     top: 20px;
+    right: 50px;
 }
+
 #boardon {
     display: none;
 }
@@ -33,51 +27,13 @@ body {
 #boardoff {
     display: none;
 }
-/*
-#glcanvas.half {
-  right: 0;
-  width: 50%;
-}*/
-
-#edit-code {
-  position: absolute;
-  top: 50px;
-  left: 50px;
-}
-
-#login, #logout {
-  position: absolute;
-  top: 50px;
-  left: 150px;
-}
-
-#edit-rods {
-  position: absolute;
-  top: 100px;
-  left: 50px;
-  min-width: 400px;
-  width: 20%;
-  max-height: 90%;
-  max-height: calc(100% - 120px);
-  overflow: scroll;
-}
 
 #editor-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  padding-top: 10px;
-  padding-bottom: 100px;
-  background-color: white;
-}
-
-#editor-inner-container {
-  width: 800px;
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  top: 20px;
+  left: 50px;
+  right: 600px;
+  height: 350px;
 }
 
 #editor {
@@ -85,103 +41,70 @@ body {
   font-family: Consolas, monospace;
   display: block;
   width: 100%;
-  height: calc(100% - 200px);
+  height: 80%;
   font-size: 1em;
+}
+
+#editor-title, #console-title {
+    background-color: #88F;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin: 0px;
+    padding: 10px;
+    padding-left: 30px;
+    height: 45px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+#console-container {
+  position: absolute;
+  top: 500px;
+  left: 50px;
+  right: 600px;
+  bottom: 20px;
 }
 
 #console {
   width: 100%;
-  height: 200px;
+  height: calc(100% - 45px);
   font-family: Consolas, monospace;
   resize: none;
   border: none;
-  background-color: #eee;
+  background-color: #333;
+  padding: 20px;
+  overflow-y: auto;
+  color: white;
+  white-space: pre-wrap;
 }
 
 #run-btn {
-  margin-top: 5px;
-  float: right;
-  margin-right: 25px;
-}
-
-#close-editor, #save-code {
-  margin-left: 20px;
-}
-
-#potentiometer {
   position: absolute;
-  bottom: 50px;
-  left: 50px;
-}
-
-.add-rod {
-  float: right;
-  margin-top: -2px;
-}
-
-#new-design {
-  float: right;
-  margin-top: -2px;
-}
-
-#add-pole {
-  margin-bottom: 15px;
-}
-
-.panel-heading .accordion-toggle:after {
-  font-family: 'Glyphicons Halflings';
-  content: "\e114";
-  float: right;
-  margin-left: 10px;
-  margin-right: -5px;
-  transition: -moz-transform 0.35s ease;
-  transition: -webkit-transform 0.35s ease;
-  transition: -o-transform 0.35s ease;
-  transition: -ms-transform 0.35s ease;
-}
-
-.panel-heading .accordion-toggle.collapsed:after {
-  -moz-transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-}
-
-.edit-pole .accordion-toggle:after {
-  margin-top: 4px;
-}
-
-.edit-pole-main {
-  padding-bottom: 0;
-}
-
-.add-rod {
-  margin-top: 1px;
-}
-
-.panel-title input {
-  width: 40px;
+  right: 50px;
+  top: 0px;
+  width: 65px;
+  padding-top: 2px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #88F;
+  height: 44px;
+  color: white;
   text-align: center;
+  border: 2px transparent;
+  outline: none;
 }
 
-.rod-row input {
-  width: 100%;
-  text-align: center;
+#run-btn:hover {
+  background-color: #77F;
+}
+#run-btn:active {
+  background-color: #55F;
 }
 
-.rod-val {
-  margin-bottom: 3px;
+.line-error {
+  background: #FBC2C4 !important;
+  color: #8a1f11 !important;
 }
 
-#render-poles-check {
-  margin-top: -2px;
-  margin-bottom: 10px;
-}
-
-.delete-pole {
-  margin-top: -30px;
-}
-
-.delete-design {
-  margin-top: -4px;
-}
+/* thanks to http://creativewebspecialist.co.uk/2013/07/15/highlight-errors-in-codemirror/ */
