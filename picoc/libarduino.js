@@ -1,7 +1,7 @@
 var LibraryArduino = {
     pinMode: function() {},
     analogWriteJS: function(pin, brightness) {
-        postMessage({type: "write", pin: pin - 2, brightness: brightness});
+        postMessage({type: "write", pin: pin - 2, brightness: brightness / 256});
     },
     digitalWriteJS: function(pin, enable) {
         postMessage({type: "write", pin: pin - 2, brightness: enable ? 255 : 0});
